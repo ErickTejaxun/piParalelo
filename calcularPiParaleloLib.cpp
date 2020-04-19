@@ -20,24 +20,12 @@ int main(int argc, char * argv[])
 	int libreria = atoi(argv[3]);
 	int contador = 0;		
 	float x = 0;
-	float y = 0;		
-	int n = numeroHilo;
-	double tiempoInicio = omp_get_wtime();
-	if(n> 8)
-	{
-		n = n / 8;
-	}
-	int estados[n];
-	MTRand rands[n];
-	for(int cont =0 ; cont < n ; cont++)
-	{
-		MTRand r(time(NULL));;
-		rands[cont] = r;
-		printf("pruba %f\n",rands[cont].rand());
-	}
+	float y = 0;			
+	double tiempoInicio = omp_get_wtime(); // Tiempo de inicio			
+
 	if(libreria==1)
 	{
-		printf("Librería seleccionada Srand()\n");
+		printf("Librería seleccionada Srand\n");
 		srand (time(NULL));	
 		tiempoInicio = omp_get_wtime();
 		#pragma omp parallel for num_threads(numeroHilo) reduction(+:contador) private(x,y)
@@ -54,18 +42,17 @@ int main(int argc, char * argv[])
 		}
 	}
 	if(libreria==2)
-	{				
+	{			
+		int estados[numeroHilo];	
 		printf("Librería seleccionada Sramd() vector\n");		
-		int estado;				
-		estado = estados[omp_get_thread_num()];	
-		sramd(&estado, time(NULL));
+		sramd(&estados[omp_get_thread_num()], time(NULL));
 		tiempoInicio = omp_get_wtime();					
 		#pragma omp parallel for num_threads(numeroHilo) reduction(+:contador)		
 		for(int i = 0 ; i < numeroIteraciones; i++)
 		{
 			
-			x=(float)ramd(&estado)/ MRAND_MAX;						
-			y=(float)ramd(&estado)/ MRAND_MAX;
+			x=(float)ramd(&estados[omp_get_thread_num()])/ MRAND_MAX;						
+			y=(float)ramd(&estados[omp_get_thread_num()])/ MRAND_MAX;
 			//printf("%d) \t%f : %f \n",i,x,y);
 			float d = sqrt( pow(x,2) + pow(y,2));
 			if(d<=1)
@@ -75,16 +62,13 @@ int main(int argc, char * argv[])
 		}		
 	}
 	if(libreria==3)
-	{				
-		printf("Librería seleccionada Sramd() variable privada\n");
-		tiempoInicio = omp_get_wtime();	
-		int estado;		
-		estado = omp_get_thread_num();
-		sramd(&estado, time(NULL));				
+	{	
+		int estado;
+		printf("Librería seleccionada Sramd() privada\n");			
 		#pragma omp parallel for num_threads(numeroHilo) reduction(+:contador) private(estado,y,x)
 		for(int i = 0 ; i < numeroIteraciones; i++)
 		{
-			
+			sramd(&estado,time(NULL));			
 			x=(float)ramd(&estado)/ MRAND_MAX;						
 			y=(float)ramd(&estado)/ MRAND_MAX;
 			//printf("%d) \t%f : %f \n",i,x,y);
@@ -97,42 +81,40 @@ int main(int argc, char * argv[])
 	}	
 
 	if(libreria==4)
-	{				
+	{	
+		MTRand rands[numeroHilo];
 		printf("Librería seleccionada MTRand() vector\n");
-		tiempoInicio = omp_get_thread_num();	
-		int estado;
-		//estado = omp_get_thread_num();						
-		tiempoInicio = omp_get_wtime();					
-		#pragma omp parallel for num_threads(numeroHilo) reduction(+:contador)		
+		for(int cont =0 ; cont < numeroHilo ; cont++)
+		{			
+			rands[cont] = MTRand(time(NULL));
+		}															
+		tiempoInicio = omp_get_wtime();	
+								
+		#pragma omp parallel for num_threads(numeroHilo) reduction(+:contador)
 		for(int i = 0 ; i < numeroIteraciones; i++)
 		{
 			
-			//x=(float) rands[].rand();					
-			/*y=(float) rands[estado].rand();	
+			x=(float) rands[omp_get_thread_num()].rand();					
+			y=(float) rands[omp_get_thread_num()].rand();	
 			//printf("%d) \t%f : %f \n",i,x,y);
 			float d = sqrt( pow(x,2) + pow(y,2));
 			if(d<=1)
 			{
 				contador++;
-			}*/
+			}
 		}
 	}	
 
 	if(libreria==5)
 	{				
 		printf("Librería seleccionada MTRand() variable privada\n");
-		tiempoInicio = omp_get_wtime();	
-		int estado;		
-		estado = omp_get_thread_num();
-		sramd(&estado, time(NULL));	
-		MTRand r(time(NULL));
-		MTRand r2(time(NULL));					
-		#pragma omp parallel for num_threads(numeroHilo) reduction(+:contador) private(y,x,r,r2)
+		tiempoInicio = omp_get_wtime();
+		MTRand r(time(NULL));						
+		#pragma omp parallel for num_threads(numeroHilo) reduction(+:contador) private(y,x,r)
 		for(int i = 0 ; i < numeroIteraciones; i++)
 		{
-
 			x= r.rand();						
-			y= r2.rand();
+			y= r.rand();
 			//printf("%d) \t%f : %f \n",i,x,y);
 			float d = sqrt( pow(x,2) + pow(y,2));
 			if(d<=1)

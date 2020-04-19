@@ -20,7 +20,7 @@ int main(int argc, char * argv[])
 	}	
 	int contador = 0;	
 	srand (time(NULL));
-	float x = 0;
+	float x = 0; 
 	float y = 0;
 	//Tiempo de inicio 
 	int numeroHilo = omp_get_thread_num();
@@ -30,8 +30,8 @@ int main(int argc, char * argv[])
 		x = (float)rand() / RAND_MAX;
 		y = (float)rand() / RAND_MAX;
 		//cout << "X:" << x <<"   y: " << y << endl;
-		float d = sqrt( pow(x,2) + pow(y,2));
-		if(d<=1)
+		float d = sqrt( pow(x,2) + pow(y,2)); // Distancia del punto (x,y) hacia el origen (0,0)
+		if(d<=1) // Si la distancia es menor a 1, significa que el punto está dentro del área del cuadrante
 		{
 			contador++;
 		}
