@@ -1,3 +1,7 @@
+/*
+* Erick Roberto Tejaxún
+* Universidad de Extremadura 
+*/
 #include <iostream>
 #include <time.h>
 #include <math.h>

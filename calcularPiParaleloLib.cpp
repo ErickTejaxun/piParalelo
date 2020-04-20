@@ -1,3 +1,7 @@
+/*
+* Erick Roberto Tejaxún
+* Universidad de Extremadura 
+*/
 #include <iostream>
 #include <time.h>
 #include <math.h>
@@ -44,7 +48,7 @@ int main(int argc, char * argv[])
 	if(libreria==2)
 	{			
 		int estados[numeroHilo];	
-		printf("Librería seleccionada Sramd() vector\n");		
+		printf("Librería seleccionada Mramd() vector\n");		
 		sramd(&estados[omp_get_thread_num()], time(NULL));
 		tiempoInicio = omp_get_wtime();					
 		#pragma omp parallel for num_threads(numeroHilo) reduction(+:contador)		
@@ -64,12 +68,13 @@ int main(int argc, char * argv[])
 	if(libreria==3)
 	{	
 		int estado;
-		printf("Librería seleccionada Sramd() privada\n");			
+		printf("Librería seleccionada Mramd() privada\n");
+		sramd(&estado, time(NULL));
+		tiempoInicio = omp_get_wtime();	
 		#pragma omp parallel for num_threads(numeroHilo) reduction(+:contador) private(estado,y,x)
 		for(int i = 0 ; i < numeroIteraciones; i++)
-		{
-			sramd(&estado,time(NULL));			
-			x=(float)ramd(&estado)/ MRAND_MAX;						
+		{			
+			x=(float)ramd(&estado)/ MRAND_MAX;				
 			y=(float)ramd(&estado)/ MRAND_MAX;
 			//printf("%d) \t%f : %f \n",i,x,y);
 			float d = sqrt( pow(x,2) + pow(y,2));
@@ -89,7 +94,7 @@ int main(int argc, char * argv[])
 			rands[cont] = MTRand(time(NULL));
 		}															
 		tiempoInicio = omp_get_wtime();	
-								
+
 		#pragma omp parallel for num_threads(numeroHilo) reduction(+:contador)
 		for(int i = 0 ; i < numeroIteraciones; i++)
 		{
@@ -107,9 +112,9 @@ int main(int argc, char * argv[])
 
 	if(libreria==5)
 	{				
-		printf("Librería seleccionada MTRand() variable privada\n");
-		tiempoInicio = omp_get_wtime();
+		printf("Librería seleccionada MTRand() variable privada\n");		
 		MTRand r(time(NULL));						
+		tiempoInicio = omp_get_wtime();
 		#pragma omp parallel for num_threads(numeroHilo) reduction(+:contador) private(y,x,r)
 		for(int i = 0 ; i < numeroIteraciones; i++)
 		{

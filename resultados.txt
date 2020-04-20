@@ -1,0 +1,64 @@
+./piParalelo2 100000000 2 2
+Librería seleccionada Mramd() vector
+El valor de pi es : 3.14119
+El tiempo necesitado fue: 14.911
+./piParalelo2 100000000 4 2
+Librería seleccionada Mramd() vector
+El valor de pi es : 3.1412
+El tiempo necesitado fue: 13.4461
+./piParalelo2 100000000 8 2
+Librería seleccionada Mramd() vector
+El valor de pi es : 3.14145
+El tiempo necesitado fue: 13.1818
+./piParalelo2 100000000 16 2
+Librería seleccionada Mramd() vector
+El valor de pi es : 3.14159
+El tiempo necesitado fue: 9.13578
+./piParalelo2 100000000 2 3
+Librería seleccionada Mramd() privada
+El valor de pi es : 3.14133
+El tiempo necesitado fue: 2.17336
+./piParalelo2 100000000 4 3
+Librería seleccionada Mramd() privada
+El valor de pi es : 3.14137
+El tiempo necesitado fue: 1.08859
+./piParalelo2 100000000 8 3 
+Librería seleccionada Mramd() privada
+El valor de pi es : 3.14134
+El tiempo necesitado fue: 0.545975
+./piParalelo2 100000000 16 3 
+Librería seleccionada Mramd() privada
+El valor de pi es : 3.14118
+El tiempo necesitado fue: 0.417973
+./piParalelo2 100000000 2 4 
+Librería seleccionada MTRand() vector
+El valor de pi es : 3.14113
+El tiempo necesitado fue: 8.51505
+./piParalelo2 100000000 4 4 
+Librería seleccionada MTRand() vector
+El valor de pi es : 3.14233
+El tiempo necesitado fue: 6.27237
+./piParalelo2 100000000 8 4 
+Librería seleccionada MTRand() vector
+El valor de pi es : 3.14221
+El tiempo necesitado fue: 5.59271
+./piParalelo2 100000000 16 4 
+Librería seleccionada MTRand() vector
+El valor de pi es : 3.14222
+El tiempo necesitado fue: 3.94053
+./piParalelo2 100000000 2 5
+Librería seleccionada MTRand() variable privada
+El valor de pi es : 3.14166
+El tiempo necesitado fue: 5.79172
+./piParalelo2 100000000 4 5
+Librería seleccionada MTRand() variable privada
+El valor de pi es : 3.14148
+El tiempo necesitado fue: 2.90005
+./piParalelo2 100000000 8 5
+Librería seleccionada MTRand() variable privada
+El valor de pi es : 3.14133
+El tiempo necesitado fue: 1.46128
+./piParalelo2 100000000 16 5
+Librería seleccionada MTRand() variable privada
+El valor de pi es : 3.14106
+El tiempo necesitado fue: 1.1482
