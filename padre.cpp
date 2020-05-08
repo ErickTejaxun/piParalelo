@@ -20,7 +20,7 @@ int main(int argc,char* argv[])
 		return 0;
 	}	 		
 	int numeroIteraciones = atoi(argv[2]);
-    int numeroHilos = atoi(argv[3]);
+	int numeroHilos = atoi(argv[3]);
 	int numeroProcesos = atoi(argv[4]);	
 	double tiempoInicio, tiempoFinal;    
 

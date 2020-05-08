@@ -71,5 +71,5 @@ Dependencias:
 
 
 # Licencia 
-  MIT :v
+  MIT
 
